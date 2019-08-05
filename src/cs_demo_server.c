@@ -8,9 +8,10 @@ hosted by the server.
 
 */
 
-#include <open62541/plugin/log_stdout.h>
-#include <open62541/server.h>
-#include <open62541/server_config_default.h>
+#include "../lib/open62541/build/open62541.h"
+//#include <open62541/plugin/log_stdout.h>
+//#include <open62541/server.h>
+//#include <open62541/server_config_default.h>
 
 #include <stdio.h>
 #include <stdlib.h>
