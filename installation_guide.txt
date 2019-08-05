@@ -1,4 +1,4 @@
-02-08-2019
+05-08-2019
 
 
 # INSTALLATION GUIDE open62541 for Linux based systems
@@ -19,23 +19,23 @@
 
 	Needed for cmake GUI used in step 5
 
-		sudo apt-get install cmake-curses-gui		# Needed for CMAKE GUI
+		sudo apt-get install cmake-curses-gui		    # Needed for CMAKE GUI
 	
 	Optional 
 
-		sudo apt-get install libmbedtls-dev 		# For encryption
-		sudo apt-get install liburcu-dev 		# For multithreading
-		sudo apt-get install check	 	        # For unit tests
+		sudo apt-get install libmbedtls-dev 		    # For encryption
+		sudo apt-get install liburcu-dev 		        # For multithreading
+		sudo apt-get install check	 	                # For unit tests
 		sudo apt-get install python-sphinx graphviz 	# For doc generation
 		sudo apt-get install python-sphinx-rtd-theme 	# For doc's style
 
 
-3. Clone master branch from github
+3. Clone open62541 from github
 
 	git clone https://github.com/open62541/open62541.git
 
 
-4. Compile the library with cmake
+4. Configure open62541 as a submodule and prepare for cmake
 
 
 	Naviagte to the open62541 directory, then:
@@ -45,7 +45,7 @@
 	    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
 
 
-	This is the recommended cmake options at the time of writing (02-08-2019) for a default installation.
+	This is the recommended cmake options at the time of writing for a default installation.
 		
 	This will enable the following features in 0.4:
 		•  Discovery
@@ -58,10 +58,10 @@
 		•  Amalgamation 
 		•  DiscoveryMulticast
 		•  Encryption
-		•  Multithreading (experimental at time of writing)
+		•  Multithreading 
 		•  Subscriptions
 
-		NOTE: At time of writing Multithreading is at a experimental stage, and users of open62541 have reported issues caused by switching it ON.
+		NOTE: At time of writing Multithreading is at a experimental stage, and users of open62541 have reported issues caused by switching it on.
 
 
 5. Turn on additional features
@@ -82,19 +82,20 @@
 		UA_ENABLE_PUBSUB_DELTAFRAMES
 		UA_ENABLE_PUBSUB_INFORMATIONMODEL
 
-		Note: pubsub_demo_sub.c and tutorial_pubsub_subscriber.c will not compile with AMALGAMATION turned ON.
-
 
 	To generate examples and tutorials, switch on:
 
 		 UA_BUILD_EXAMPLES
 
-	NOTE: Examples cannot bu built when using AMALGAMATION on Rasbian
+	NOTE: Examples cannot be built when using AMALGAMATION on Rasbian
+
 
 	Save configuration then Generate and exit.
 
 
-6. Complete the compilation of the library
+6. Compile open62451 with make
+
+	(while inside /opcua/lib/open62451/build)
 
 	make
 	sudo make install

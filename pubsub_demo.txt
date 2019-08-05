@@ -63,14 +63,14 @@ Sub configuration. For more details take a look at the following section PubSub 
 # Development notes:
 
 
-	At the time of writing, the subscribe high level API was not completly finished, and hence some header files was not added to system header files directory by the build process with cmake. They are included in the example code provided by open62541 as if they were located in the same location as the program itself, which they are not. When compiling the code the compiler will not find the header. 
+	At the time of writing, the subscriber high level API was not completly finished, and hence some header files was not added to system header files directory by the build process with cmake. They are included in the example code provided by open62541 as if they were located in the same location as the program itself, which they are not. When compiling the code the compiler will not find the header. 
 
 		E.g. in "tutorial_pubsub_subscribe.c"
 
 			#include "ua_pubsub.h"
 
 
-	Therefore to keep a sensible directory structure, some path adjustments for some of the header files were necessary.
+	Therefore to keep a sensible directory structure, path adjustments for some of the header files were necessary.
 
 		The following header files have been identified as needing to be included with relative path (there may be several more):
 		
@@ -90,6 +90,6 @@ Sub configuration. For more details take a look at the following section PubSub 
 		#include "../../deps/open62541_queue.h"
 
 
-	There may be a more elegant way of solving this, but this solution is simple and straightforward and deemed sufficient until the next release of open62541 which the header files probably is included into the system header files with cmake.
+	There may be a more elegant way of solving this, but this solution is simple and straightforward and deemed sufficient until the next release of open62541 where it is most likely fixed.
 
-	It also possible to manually edit the CMakeList.txt so the header files are added to to the system header files with the rest and then rebuild. This was decided againts because of time restraint and the complexity of the libraries CMakeLists.txt.
+	It also possible to manually edit the CMakeList.txt so the header files are added to to the system header files with the rest and then rebuild. This was decided againts because of time restraint and the complexity of the CMakeLists.txt.
