@@ -67,23 +67,26 @@ int main(void) {
             UA_ReferenceDescription *ref = &(bResp.results[i].references[j]);
       
             if( ref->nodeId.nodeId.identifier.numeric == COUNTER_NODE_ID ){
-        
-            	/*READ FROM NODE OPERATION*/
-				//= reads the value of the node ID , puts it into "value" 
-				retval = UA_Client_readValueAttribute(client, ref->nodeId.nodeId, &value);
-				if(retval == UA_STATUSCODE_GOOD && 
-				   UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_INT32])) 
-				{
-					UA_Int32 raw_val = *(UA_Int32*) value.data;
-					printf("\nthe value is: %i\n", raw_val);
-				}
-				else{
-					/*For debugging*/
-					if(retval != UA_STATUSCODE_GOOD) printf("\nretval != UA_STATUSCODE_GOOD\n");
-					if(!UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_INT32])){
-						printf("\nUA_Variant_hasScalarType != OK\n");
+    		
+    			while(retval == UA_STATUSCODE_GOOD){
+		        	/*READ FROM NODE OPERATION*/
+					//= reads the value of the node ID , puts it into "value" 
+					retval = UA_Client_readValueAttribute(client, ref->nodeId.nodeId, &value);
+					if(retval == UA_STATUSCODE_GOOD && 
+					   UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_INT32])) 
+					{
+						UA_Int32 raw_val = *(UA_Int32*) value.data;
+						printf("\nthe value is: %i\n", raw_val);
 					}
-			    }
+					else{
+						/*For debugging*/
+						if(retval != UA_STATUSCODE_GOOD) printf("\nretval != UA_STATUSCODE_GOOD\n");
+						if(!UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_INT32])){
+							printf("\nUA_Variant_hasScalarType != OK\n");
+						}
+				    }
+				}
+				
 		    }
 
 	    }
