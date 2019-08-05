@@ -14,7 +14,6 @@ of its "Piece counter" node. The client accesses this data and prints it.
 
 #define COUNTER_NODE_ID 20305
 
-#hei
 int main(void) {
 
 // 1.Firstly, we set up the connection
