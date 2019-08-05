@@ -1,5 +1,5 @@
 /*
-PUB/SUB DEMO EXAMPLE: 
+PUB/SUB DEMO EXAMPLE: hei
 
 From the developers of open62541:
     The PubSub Subscriber API is currently not finished. This example can be used
