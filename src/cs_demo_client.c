@@ -6,10 +6,10 @@ The server counts parts with a sensor and updates the numberOfparts attribute
 of its "Piece counter" node. The client accesses this data and prints it.
 */
 
-
-#include <open62541/client_config_default.h>
-#include <open62541/client_highlevel.h>
-#include <open62541/plugin/log_stdout.h>
+#include "../lib/open62541/build/open62541.h"
+//#include <open62541/client_config_default.h>
+//#include <open62541/client_highlevel.h>
+//#include <open62541/plugin/log_stdout.h>
 #include <stdlib.h>
 
 #define COUNTER_NODE_ID 20305
