@@ -6,23 +6,27 @@ The compelete documentation pdf is avaiable on the open62541 website ttps://open
 
 # INSTALLATION GUIDE open62541 for Linux based systems
 
+1. Clone opcua from github
 
-1. Install needed dependency to compile the open62541 library
+	git clone https://github.com/Mariunil/opcua.git
+
+
+2. Install needed dependency to compile the open62541 library
 
  	sudo apt-get install git build-essential gcc pkg-config cmake python python-six
 
 
-2. Intall dependencies that are useful for other features
+3. Intall dependencies that are useful for other features
 
 	Needed for cmake GUI used in step 5
 
-		sudo apt-get install cmake-curses-gui			# Needed for CMAKE GUI
+		sudo apt-get install cmake-curses-gui		# Needed for CMAKE GUI
 	
 	Optional 
 
-		sudo apt-get install libmbedtls-dev 			# For encryption
-		sudo apt-get install liburcu-dev 				# For multithreading
-		sudo apt-get install check	 				 	# For unit tests
+		sudo apt-get install libmbedtls-dev 		# For encryption
+		sudo apt-get install liburcu-dev 		# For multithreading
+		sudo apt-get install check	 	        # For unit tests
 		sudo apt-get install python-sphinx graphviz 	# For doc generation
 		sudo apt-get install python-sphinx-rtd-theme 	# For doc's style
 
@@ -37,7 +41,7 @@ The compelete documentation pdf is avaiable on the open62541 website ttps://open
 
 	Naviagte to the open62541 directory, then:
 
-		git submodule update --init --recursive
+	    git submodule update --init --recursive
 	    mkdir build && cd build
 	    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
 
@@ -86,6 +90,7 @@ The compelete documentation pdf is avaiable on the open62541 website ttps://open
 
 		 UA_BUILD_EXAMPLES
 
+	NOTE: Examples cannot bu built when using AMALGAMATION on Rasbian
 
 	Save configuration then Generate and exit.
 
