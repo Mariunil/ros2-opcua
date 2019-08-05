@@ -1,0 +1,101 @@
+02-08-2019
+###
+The compelete documentation pdf is avaiable on the open62541 website ttps://open62541.org.
+###
+
+
+# INSTALLATION GUIDE open62541 for Linux based systems
+
+
+1. Install needed dependency to compile the open62541 library
+
+ 	sudo apt-get install git build-essential gcc pkg-config cmake python python-six
+
+
+2. Intall dependencies that are useful for other features
+
+	Needed for cmake GUI used in step 5
+
+		sudo apt-get install cmake-curses-gui			# Needed for CMAKE GUI
+	
+	Optional 
+
+		sudo apt-get install libmbedtls-dev 			# For encryption
+		sudo apt-get install liburcu-dev 				# For multithreading
+		sudo apt-get install check	 				 	# For unit tests
+		sudo apt-get install python-sphinx graphviz 	# For doc generation
+		sudo apt-get install python-sphinx-rtd-theme 	# For doc's style
+
+
+3. Clone master branch from github
+
+	git clone https://github.com/open62541/open62541.git
+
+
+4. Compile the library with cmake
+
+
+	Naviagte to the open62541 directory, then:
+
+		git submodule update --init --recursive
+	    mkdir build && cd build
+	    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
+
+
+	This is the recommended cmake options at the time of writing (02-08-2019) for a default installation.
+		
+	This will enable the following features in 0.4:
+		•  Discovery
+		•  FullNamespace
+		•  Methods
+		•  Subscriptions
+
+	The following features are not enabled and can be optionally enabled 
+
+		•  Amalgamation 
+		•  DiscoveryMulticast
+		•  Encryption
+		•  Multithreading (experimental at time of writing)
+		•  Subscriptions
+
+		NOTE: At time of writing Multithreading is at a experimental stage, and users of open62541 have reported issues caused by switching it ON.
+
+
+5. Turn on additional features
+
+	Enter the cmake configuration GUI
+
+		ccmake..
+
+
+	For simplicity, we will compile the library to a signle open62541.c/.h file. Switch on:
+
+		A_ENABLE_AMALGAMATION
+
+
+	To enable pubsub networking, switch on:
+
+		UA_ENABLE_PUBSUB
+		UA_ENABLE_PUBSUB_DELTAFRAMES
+		UA_ENABLE_PUBSUB_INFORMATIONMODEL
+
+		Note: pubsub_demo_sub.c and tutorial_pubsub_subscriber.c will not compile with AMALGAMATION turned ON.
+
+
+	To generate examples and tutorials, switch on:
+
+		 UA_BUILD_EXAMPLES
+
+
+	Save configuration then Generate and exit.
+
+
+6. Complete the compilation of the library
+
+	make
+	sudo make install
+
+
+
+
+

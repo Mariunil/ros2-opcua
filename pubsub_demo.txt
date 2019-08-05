@@ -1,0 +1,95 @@
+02-08-2019
+###
+OPC UA Pub/Sub DEMO:
+###
+
++-----------+
+| UA_Server |
++-----------+
+|	|
+|	|	+-------------------+
+|	+-->|UA_PubSubConnection|  =>  UA_Server_addPubSubConnection
+|		+-------------------+
+|		|		|	 +--------------+
+|		|		+--> |UA_WriterGroup|  =>  UA_PubSubConnection_addWriterGroup
+|		|			 +--------------+
+|		|					|
+|		|					|	  +----------------+
+|		|					+---> |UA_DataSetWriter|  =>  UA_WriterGroup_addDataSetWriter --+  
+|		|						  +----------------+										|
+|		|																					|
+|		|			 +--------------+													    | r
+|		+----------->|UA_ReaderGroup|												  	    | e	
+|					 +--------------+ 													    | f
+|																		                    |
+|																					     	|
+|	   +-------------------------+															|
++----->|UA_PubSubPublishedDataSet|  =>  UA_Server_addPublishedDataSet		    <-----------+
+	   +--------------------------
+	   		|
+	   		|    +---------------+
+	   		+--->|UA_DataSetField|  =>  UA_PublishedDataSet_addDataSetField
+	   			 +---------------+
+
+
+
+
+
+
+The PubSub publish example demonstrate the simplest way to publish informations from the information model over UDP multicast using the UADP encoding
+
+
+
+
+
+##PubSub compile flags
+
+**UA_ENABLE_PUBSUB**
+Enable the experimental OPC UA PubSub support. The option will include the PubSub
+UDP multicast plugin. Disabled by default.
+
+
+**UA_ENABLE_PUBSUB_DELTAFRAMES**
+The PubSub messages differentiate between keyframe (all published values contained) and deltaframe (only changed values contained) messages. Deltaframe messages creation consumes some additional ressources and can be disabled with this flag. Disabled by default. Compile the human-readable name of the StatusCodes into the binary. Disabled by default.
+
+
+**UA_ENABLE_PUBSUB_INFORMATIONMODEL** Enable the information model representation of the Pub-
+Sub configuration. For more details take a look at the following section PubSub Information Model Representation. Disabled by default.
+
+
+
+
+
+# Development notes:
+
+
+	At the time of writing, the subscribe high level API was not completly finished, and hence some header files was not added to system header files directory by the build process with cmake. They are included in the example code provided by open62541 as if they were located in the same location as the program itself, which they are not. When compiling the code the compiler will not find the header. 
+
+		E.g. in "tutorial_pubsub_subscribe.c"
+
+			#include "ua_pubsub.h"
+
+
+	Therefore to keep a sensible directory structure, some path adjustments for some of the header files were necessary.
+
+		The following header files have been identified as needing to be included with relative path (there may be several more):
+		
+			ua_pubsub.h
+			ua_queue.h
+
+	
+	In the demo code provided this is taken care of.
+
+		 E.g. in "pubsub_demo_sub.c"
+
+		 	#include "../lib/open62541/src/pubsub/ua_pubsub.h"
+		
+
+	Aditionally, inside "ua_pubsub.h", "ua_queue.h" is included with relative path aswell
+
+		#include "../../deps/open62541_queue.h"
+
+
+	There may be a more elegant way of solving this, but this solution is simple and straightforward and deemed sufficient until the next release of open62541 which the header files probably is included into the system header files with cmake.
+
+	It also possible to manually edit the CMakeList.txt so the header files are added to to the system header files with the rest and then rebuild. This was decided againts because of time restraint and the complexity of the libraries CMakeLists.txt.
