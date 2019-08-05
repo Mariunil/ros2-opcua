@@ -7,11 +7,14 @@ From the developers of open62541:
     example in the TargetVariables of Subscriber Information Model .
  */
 
+#include "../lib/open62541/build/open62541.h"
+/*
 #include <open62541/plugin/log_stdout.h>
 #include <open62541/plugin/pubsub_udp.h>
 #include <open62541/server.h>
 #include <open62541/server_config_default.h>
 #include <open62541/types_generated.h>
+*/
 
 #include "../lib/open62541/src/pubsub/ua_pubsub.h"
 
