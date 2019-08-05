@@ -8,10 +8,10 @@ hosted by the server.
 
 */
 
-#include "../lib/open62541/build/open62541.h"
-//#include <open62541/plugin/log_stdout.h>
-//#include <open62541/server.h>
-//#include <open62541/server_config_default.h>
+
+#include <open62541/plugin/log_stdout.h>
+#include <open62541/server.h>
+#include <open62541/server_config_default.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -102,7 +102,7 @@ int main(void) {
 	//Create a new server with default configuration
 	UA_Server* server = UA_Server_new(); 
     UA_ServerConfig_setDefault(UA_Server_getConfig(server));
-  
+
     
     //Add the variable from the fake sensor
     addCounterSensorVariable(server); 
