@@ -15,22 +15,19 @@
  	sudo apt-get install git build-essential gcc pkg-config cmake python python-six
 
 
-3. Intall dependencies that are useful for other features
+3. Intall other dependencies
 
-	Needed for cmake GUI used in step 5
-
-		sudo apt-get install cmake-curses-gui		    # Needed for CMAKE GUI
-	
-	Optional 
-
-		sudo apt-get install libmbedtls-dev 		    # For encryption
-		sudo apt-get install liburcu-dev 		        # For multithreading
-		sudo apt-get install check	 	                # For unit tests
-		sudo apt-get install python-sphinx graphviz 	# For doc generation
-		sudo apt-get install python-sphinx-rtd-theme 	# For doc's style
+	sudo apt-get install cmake-curses-gui		    # Needed for CMAKE GUI
+	sudo apt-get install libmbedtls-dev 		    # For encryption
+	sudo apt-get install liburcu-dev 		        # For multithreading
+	sudo apt-get install check	 	                # For unit tests
+	sudo apt-get install python-sphinx graphviz 	# For doc generation
+	sudo apt-get install python-sphinx-rtd-theme 	# For doc's style
 
 
 3. Clone open62541 from github
+
+	Navigate to /opcua/lib/
 
 	git clone https://github.com/open62541/open62541.git
 
@@ -38,11 +35,11 @@
 4. Configure open62541 as a submodule and prepare for cmake
 
 
-	Naviagte to the open62541 directory, then:
+	Naviagte to the open62541 directory
 
-	    git submodule update --init --recursive
-	    mkdir build && cd build
-	    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
+    git submodule update --init --recursive
+    mkdir build && cd build
+    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
 
 
 	This is the recommended cmake options at the time of writing for a default installation.
@@ -87,9 +84,7 @@
 
 		 UA_BUILD_EXAMPLES
 
-	NOTE: Examples cannot be built when using AMALGAMATION on Rasbian
-
-
+	
 	Save configuration then Generate and exit.
 
 

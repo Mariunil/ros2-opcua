@@ -1,9 +1,9 @@
 /*
 CLIENT/SERVER DEMO EXAMPLE: Simple OPC UA client accessing fake sensor data
 
-The OPC-UA client sets up a connection to a OPC-UA server by a TCP connection.
+The OPC UA client sets up a connection to a OPC UA server by a TCP connection.
 The server counts parts with a sensor and updates the numberOfparts attribute 
-of its "Piece counter" node. The client accesses this data and prints it.
+of its "Piece counter" node. The client accesses this data and prints it insinde a loop.
 */
 
 
@@ -12,11 +12,16 @@ of its "Piece counter" node. The client accesses this data and prints it.
 #include <open62541/plugin/log_stdout.h>
 #include <stdlib.h>
 
+//NodeID of sensor-node
 #define COUNTER_NODE_ID 20305
+
+//polling interval for the client
+#define SLEEP_TIME_MILLIS 50
+int utime = SLEEP_TIME_MILLIS*15000;
 
 int main(void) {
 
-// 1.Firstly, we set up the connection
+// 1. First, we set up the connection
 
 
 	// create a new client
@@ -41,27 +46,21 @@ int main(void) {
 	UA_Variant_init(&value);
 	UA_Variant_setScalar(&value, &myInteger, &UA_TYPES[UA_TYPES_INT32]);
 
-	
-	/*----Node-info----*/
-	/*An OPC UA information model is made up of nodes and references between nodes.
-	Every node has a unique NodeId. NodeIds refer to a namespace with an additional 
-	identifier value that can be an integer, a string, a guid or a bytestring.*/
-
-
-    //Browsing nodes in objects folder
+    // Browsing nodes in objects folder
     UA_BrowseRequest bReq;
     UA_BrowseRequest_init(&bReq);
 
     bReq.requestedMaxReferencesPerNode = 0;
     bReq.nodesToBrowse = UA_BrowseDescription_new();
     bReq.nodesToBrowseSize = 1;
-     //browse objects folder 
+    // browse objects folder 
     bReq.nodesToBrowse[0].nodeId = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
-  	//return everything 
+  	// return everything 
     bReq.nodesToBrowse[0].resultMask = UA_BROWSERESULTMASK_ALL; 
     UA_BrowseResponse bResp = UA_Client_Service_browse(client, bReq);
     
-  //looking for a specific node, the node representing number of counted parts
+    /* iterate through list looking for a specific node, the node representing 
+       number of counted parts */
     for(size_t i = 0; i < bResp.resultsSize; ++i) {
         for(size_t j = 0; j < bResp.results[i].referencesSize; ++j) {
             UA_ReferenceDescription *ref = &(bResp.results[i].references[j]);
@@ -76,7 +75,7 @@ int main(void) {
 					   UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_INT32])) 
 					{
 						UA_Int32 raw_val = *(UA_Int32*) value.data;
-						printf("\nthe value is: %i\n", raw_val);
+						printf("\nCounted pieces: %i\n", raw_val);
 					}
 					else{
 						/*For debugging*/
@@ -85,17 +84,13 @@ int main(void) {
 							printf("\nUA_Variant_hasScalarType != OK\n");
 						}
 				    }
+				    usleep(utime);
 				}
-
 		    }
-
 	    }
     }
 
    
-
-
-    
 // 3. clean up
 
     UA_BrowseRequest_clear(&bReq);
