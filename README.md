@@ -1,7 +1,9 @@
 # opcua
 
 ## Description
-This repository will provide OPC UA pubsub publisher and subcriber nodes that can be implemented in ROS 2.0 pubsub systems. Details of deployment in ROS 2.0 pubsub systems will come. At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
+This repository will provide open62541 based OPC UA pubsub publisher and subcriber nodes that can be implemented in ROS 2.0 pubsub systems. Details of deployment in ROS 2.0 pubsub systems will come. At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
+
+
 
 
 
