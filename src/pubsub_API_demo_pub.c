@@ -9,8 +9,12 @@ encoding.
 */
 
 #include <open62541/plugin/log_stdout.h>
-//#include <open62541/plugin/pubsub_ethernet.h> //Raspberry Pi cannot find this.
-#include <open62541/plugin/pubsub_udp.h>
+
+/* Rel path as Raspberry Pie cannot find this header in system headers. */
+#include "../lib/open62541/plugins/include/open62541/plugin/pubsub_ethernet.h".
+#include "../lib/open62541/plugins/include/open62541/plugin/pubsub_udp.h" 
+/*----------------------------------------------------------------------*/
+
 #include <open62541/server.h>
 #include <open62541/server_config_default.h>
 
