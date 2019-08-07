@@ -3,13 +3,13 @@
 
 ## Development status:  
 
-    Stage 1   - OPC UA client/server TCP local communication.					DONE  
+    Stage 1   - OPC UA client/server local communication.                       DONE  
 
-    Stage 1.5 - OPC UA client/server over TCP ethernet (desktop<->Rpi3) 	    DONE
+    Stage 1.5 - OPC UA client/server over TCP ethernet (desktop<->Rpi3)         DONE
 
-    Stage 2   - OPC UA pub/sub local 									        DONE		
+    Stage 2   - OPC UA pub/sub local                                            DONE		
 
-    Stage 2.5 - OPC UA pub/sub over ethernet (desktop<->Rpi3) 
+    Stage 2.5 - OPC UA pub/sub over ethernet (desktop<->Rpi3)                   PENDING
 
     Stage 3   - OPC UA publisher integration in ROS 2.0 system 
 
