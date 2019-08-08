@@ -86,7 +86,7 @@ static void addDataSetField(UA_Server* server) {
      real-world objects and software objects. */
 
     // Creating publisher object
-    UA_NodeId dataSetFieldId;
+  /*
     UA_NodeId folderId;
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
     oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Publisher 1");
@@ -95,36 +95,83 @@ static void addDataSetField(UA_Server* server) {
       UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES),
       UA_QUALIFIEDNAME(1, "Publisher 1"), 
       UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &folderId); 
-
+    */
     // publisher object holds a INT32 Variable representing pieces counted
+    /*
+    UA_NodeId dataSetFieldId = UA_NODEID_STRING(1, "Publisher1.Int32");
+    
+    UA_QualifiedName sensorName = UA_QUALIFIEDNAME(1, "TempRead");
+
     UA_NodeId_init(&dataSetFieldId);
     UA_VariableAttributes int32Attr = UA_VariableAttributes_default;
-    int32Attr.valueRank = -1;
-    UA_NodeId_copy(&UA_TYPES[UA_TYPES_INT32].typeId, &int32Attr.dataType);
-    int32Attr.accessLevel = UA_ACCESSLEVELMASK_READ ^ UA_ACCESSLEVELMASK_WRITE;
-    UA_Variant_setScalar(&int32Attr.value, &value, &UA_TYPES[UA_TYPES_INT32]);
     int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Temperature reading");
-    UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Publisher1.Int32"), folderId,
+    int32Attr.accessLevel = UA_ACCESSLEVELMASK_READ ^ UA_ACCESSLEVELMASK_WRITE;
+    int32Attr.valueRank = -1;
+
+
+    UA_NodeId_copy(&UA_TYPES[UA_TYPES_INT32].typeId, &int32Attr.dataType);
+    
+    UA_Variant_setScalar(&int32Attr.value, &value, &UA_TYPES[UA_TYPES_INT32]);
+    
+    UA_Server_addVariableNode(server , folderId,
       UA_NODEID_NUMERIC(0, UA_NS0ID_HASCOMPONENT),
-      UA_QUALIFIEDNAME(1, "TempRead"),
+      sensorName,
       UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), int32Attr, NULL, &dataSetFieldId);
 
 
     //if (!UA_NodeId_equal(&publishedDataSetId, &UA_NODEID_NULL)){
         
         // Create and add the field to the PublishedDataSet
+        UA_NodeId field1;
         UA_DataSetFieldConfig int32Config;
         memset(&int32Config, 0, sizeof(UA_DataSetFieldConfig));
+        int32Config.dataSetFieldType = UA_PUBSUB_DATASETFIELD_VARIABLE;
         int32Config.field.variable.fieldNameAlias = UA_STRING("Int32");
-        int32Config.field.variable.promotedField = true;
+        int32Config.field.variable.promotedField = UA_FALSE;
         int32Config.field.variable.publishParameters.publishedVariable = dataSetFieldId;
         int32Config.field.variable.publishParameters.attributeId = UA_ATTRIBUTEID_VALUE;
 
-        /* Add the field(s) to the previous created PublishedDataSet */
-        UA_NodeId field1;
+        /* Add the field(s) to the previous created PublishedDataSet *//*
         UA_Server_addDataSetField(server, publishedDataSetId, &int32Config, &field1);
 
     //}
+        */
+  /* Here we are setting a specific ID for the node but the library
+     can do it if we don't specify it */
+  UA_NodeId counterNodeId = UA_NODEID_NUMERIC(1, COUNTER_NODE_ID);  
+
+  // We specify also the name of the OPC UA node
+  UA_QualifiedName counterName = UA_QUALIFIEDNAME(1, "Piece Counter[pieces]");  
+
+  UA_VariableAttributes attr = UA_VariableAttributes_default;
+  attr.description = UA_LOCALIZEDTEXT("en_US","Piece Counter (units:pieces)");
+  attr.displayName = UA_LOCALIZEDTEXT("en_US","Piece Counter");
+    attr.dataType = UA_TYPES[UA_TYPES_INT32].typeId;  
+
+    // Set the initial value to 0
+  UA_Int32 counterValue = 0;
+    UA_Variant_setScalarCopy(&attr.value, &counterValue, &UA_TYPES[UA_TYPES_INT32]);  
+
+    // Include the variable to the server under the root object folder
+  UA_Server_addVariableNode(server, counterNodeId,
+    UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),
+    UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES),
+    counterName, UA_NODEID_NULL, attr, NULL, NULL);
+
+   /* Add a field to the previous created PublishedDataSet */
+    UA_NodeId dataSetFieldId;
+    UA_DataSetFieldConfig dataSetFieldConfig;
+    memset(&dataSetFieldConfig, 0, sizeof(UA_DataSetFieldConfig));
+    dataSetFieldConfig.dataSetFieldType = UA_PUBSUB_DATASETFIELD_VARIABLE;
+    dataSetFieldConfig.field.variable.fieldNameAlias = UA_STRING("Server localtime");
+    dataSetFieldConfig.field.variable.promotedField = UA_FALSE;
+    dataSetFieldConfig.field.variable.publishParameters.publishedVariable =
+    counterNodeId; //noden laget ovenfor etter cs_demo_server oppskrift
+    dataSetFieldConfig.field.variable.publishParameters.attributeId = UA_ATTRIBUTEID_VALUE;
+    UA_Server_addDataSetField(server, publishedDataSetId,
+                              &dataSetFieldConfig, &dataSetFieldId);
+
+
 
 }
 
