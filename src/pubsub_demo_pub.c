@@ -82,6 +82,7 @@ static void addPublishedDataSet(UA_Server* server) {
    published field. The fields are whats being published */
 static void addDataSetField(UA_Server* server) {
 
+  /*-----------------den gamle---------------------------------------------
     /* Objects are used to represent systems, system components, 
      real-world objects and software objects. */
 
@@ -135,7 +136,10 @@ static void addDataSetField(UA_Server* server) {
         UA_Server_addDataSetField(server, publishedDataSetId, &int32Config, &field1);
 
     //}
-        */
+   --------------------------------------------------------------*/
+
+  //        Fugnerer toveis
+  //-----------------------------------//
   /* Here we are setting a specific ID for the node but the library
      can do it if we don't specify it */
   UA_NodeId counterNodeId = UA_NODEID_NUMERIC(1, COUNTER_NODE_ID);  
@@ -171,7 +175,7 @@ static void addDataSetField(UA_Server* server) {
     UA_Server_addDataSetField(server, publishedDataSetId,
                               &dataSetFieldConfig, &dataSetFieldId);
 
-
+    //-------------------------///
 
 }
 
