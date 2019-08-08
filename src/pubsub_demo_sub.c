@@ -117,6 +117,7 @@ int main(int argc, char **argv) {
     UA_PubSubConnectionConfig connectionConfig;
     memset(&connectionConfig, 0, sizeof(connectionConfig));
     connectionConfig.name = UA_STRING("UADP Connection 1");
+
     connectionConfig.transportProfileUri =
         UA_STRING("http://opcfoundation.org/UA-Profile/Transport/pubsub-udp-uadp");
     connectionConfig.enabled = UA_TRUE;
@@ -126,6 +127,7 @@ int main(int argc, char **argv) {
     UA_Variant_setScalar(&connectionConfig.address, &networkAddressUrl,
                          &UA_TYPES[UA_TYPES_NETWORKADDRESSURLDATATYPE]);
 
+    /* creating pubsubchannel in the udp layer*/
     UA_PubSubChannel* psc = udpLayer.createPubSubChannel(&connectionConfig);
     psc->regist(psc, NULL, NULL);
 

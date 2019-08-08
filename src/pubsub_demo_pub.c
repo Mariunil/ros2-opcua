@@ -249,6 +249,7 @@ int main(int argc, char **argv) {
     UA_NetworkAddressUrlDataType networkAddressUrl =
         {UA_STRING_NULL , UA_STRING("opc.udp://224.0.0.22:4840/")};
 
+    /*
     if (argc > 1) {
         if (strcmp(argv[1], "-h") == 0) {
             usage(argv[0]);
@@ -269,6 +270,7 @@ int main(int argc, char **argv) {
             return EXIT_FAILURE;
         }
     }
+    */
 
     return run(&transportProfile, &networkAddressUrl);
 }
