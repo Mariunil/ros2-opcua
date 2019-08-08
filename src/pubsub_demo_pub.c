@@ -24,7 +24,7 @@ static UA_Int32 value = 24;
 // Define the ID of the node externally as it will be needed inside the thread
 #define COUNTER_NODE_ID 20305
 
-UA_NodeId connectionId, publishedDataSetId, writerGroupId, dataSetFieldId;
+UA_NodeId connectionId, publishedDataSetId, writerGroupId;
 
 //To allow for ctrl-c triggered stop
 UA_Boolean running = true;
@@ -86,6 +86,7 @@ static void addDataSetField(UA_Server* server) {
      real-world objects and software objects. */
 
     // Creating publisher object
+    UA_NodeId dataSetFieldId;
     UA_NodeId folderId;
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
     oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Publisher 1");
@@ -93,7 +94,7 @@ static void addDataSetField(UA_Server* server) {
       UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),
       UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES),
       UA_QUALIFIEDNAME(1, "Publisher 1"), 
-      UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &folderId);
+      UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &folderId); 
 
     // publisher object holds a INT32 Variable representing pieces counted
     UA_NodeId_init(&dataSetFieldId);
