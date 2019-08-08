@@ -6,7 +6,7 @@ The PubSub publish demo demonstrate the simplest way to publish
 informations from the information model over UDP multicast using the UADP
 encoding.
 
-The publisher uses publisher high level API
+The publisher uses high level Publisher-API
 
 */
 
@@ -17,8 +17,8 @@ The publisher uses publisher high level API
 #include <open62541/server_config_default.h>
 #include <signal.h>
 
-static UA_Int32 value = 666;
-#define Publisher_ID 1
+static UA_Int32 value = 24;
+#define Publisher_ID 2042
 // Define the sampling time for the sensor
 #define SLEEP_TIME_MILLIS 50
 // Define the ID of the node externally as it will be needed inside the thread
@@ -70,7 +70,7 @@ static void addPublishedDataSet(UA_Server* server) {
     UA_PublishedDataSetConfig publishedDataSetConfig;
     memset(&publishedDataSetConfig, 0, sizeof(UA_PublishedDataSetConfig));
     publishedDataSetConfig.publishedDataSetType = UA_PUBSUB_DATASET_PUBLISHEDITEMS;
-    publishedDataSetConfig.name = UA_STRING("piece counter dataset");
+    publishedDataSetConfig.name = UA_STRING("TempSensor");
 
     UA_Server_addPublishedDataSet(server, &publishedDataSetConfig, &publishedDataSetId);
 }
@@ -92,8 +92,8 @@ static void addDataSetField(UA_Server* server) {
     UA_Server_addObjectNode(server, UA_NODEID_NULL,
       UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),
       UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES),
-      UA_QUALIFIEDNAME(1, "Publisher 1"), UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE),
-      oAttr, NULL, &folderId);
+      UA_QUALIFIEDNAME(1, "Publisher 1"), 
+      UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &folderId);
 
     // publisher object holds a INT32 Variable representing pieces counted
     UA_NodeId_init(&dataSetFieldId);
@@ -102,10 +102,10 @@ static void addDataSetField(UA_Server* server) {
     UA_NodeId_copy(&UA_TYPES[UA_TYPES_INT32].typeId, &int32Attr.dataType);
     int32Attr.accessLevel = UA_ACCESSLEVELMASK_READ ^ UA_ACCESSLEVELMASK_WRITE;
     UA_Variant_setScalar(&int32Attr.value, &value, &UA_TYPES[UA_TYPES_INT32]);
-    int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Counted pieces");
+    int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Temperature reading");
     UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Publisher1.Int32"), folderId,
       UA_NODEID_NUMERIC(0, UA_NS0ID_HASCOMPONENT),
-      UA_QUALIFIEDNAME(1, "Int32"),
+      UA_QUALIFIEDNAME(1, "TempRead"),
       UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), int32Attr, NULL, &dataSetFieldId);
 
 
@@ -115,7 +115,7 @@ static void addDataSetField(UA_Server* server) {
         UA_DataSetFieldConfig int32Config;
         memset(&int32Config, 0, sizeof(UA_DataSetFieldConfig));
         int32Config.field.variable.fieldNameAlias = UA_STRING("Int32");
-        int32Config.field.variable.promotedField = false;
+        int32Config.field.variable.promotedField = true;
         int32Config.field.variable.publishParameters.publishedVariable = dataSetFieldId;
         int32Config.field.variable.publishParameters.attributeId = UA_ATTRIBUTEID_VALUE;
 
@@ -166,7 +166,7 @@ static void addDataSetWriter(UA_Server* server) {
 
     memset(&dataSetWriterConfig, 0, sizeof(UA_DataSetWriterConfig));
     dataSetWriterConfig.name = UA_STRING("DataSetWriter");
-    dataSetWriterConfig.dataSetWriterId = 1;
+    dataSetWriterConfig.dataSetWriterId = Publisher_ID;
 
     /* The creation of delta messages is configured in the following line. Value
      0 -> no delta messages are created. */

@@ -6,7 +6,7 @@ The PubSub subscribe demo demonstrate the simplest way to susbribe to
 informations from the information model over UDP multicast using the UADP
 encoding.
 
-The publisher do not use subscriebr high level API as it is not yet finished
+The publisher do not use high level subscriber-API as it is not yet finished
 
 */
 
@@ -33,6 +33,7 @@ static void stopHandler(int sign) {
 }
 
 static UA_StatusCode subscriberListen(UA_PubSubChannel* psc) {
+   
     UA_ByteString buffer;
     UA_StatusCode retval = UA_ByteString_allocBuffer(&buffer, 512);
 
@@ -79,27 +80,15 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel* psc) {
       
         /* Loop over the fields and print well-known content types */
         for(int i = 0; i < dsm->data.keyFrameData.fieldCount; i++) {
-            const UA_DataType *currentType = dsm->data.keyFrameData.dataSetFields[i].value.type;
-            if(currentType == &UA_TYPES[UA_TYPES_BYTE]) {
-                UA_Byte value = *(UA_Byte *)dsm->data.keyFrameData.dataSetFields[i].value.data;
-                UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
-                            "Message content: [Byte] \tReceived data: %i", value);
-            } 
-            if (currentType == &UA_TYPES[UA_TYPES_DATETIME]) {
-                UA_DateTime value = *(UA_DateTime *)dsm->data.keyFrameData.dataSetFields[i].value.data;
-                UA_DateTimeStruct receivedTime = UA_DateTime_toStruct(value);
-                UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
-                            "Message content: [DateTime] \t"
-                            "Received date: %02i-%02i-%02i Received time: %02i:%02i:%02i",
-                            receivedTime.year, receivedTime.month, receivedTime.day,
-                            receivedTime.hour, receivedTime.min, receivedTime.sec);
-            } 
+            
+            const UA_DataType* currentType = dsm->data.keyFrameData.dataSetFields[i].value.type;
+            
             if(currentType == &UA_TYPES[UA_TYPES_INT32]) {
-                UA_Int32 value = *(UA_Int32*)dsm->data.keyFrameData.dataSetFields[i].value.data;
-                UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
-                            "Message content: [Byte] \tReceived data: %i", value);
-
-            }
+               UA_Int32 value = *(UA_Int32*)dsm->data.keyFrameData.dataSetFields[i].value.data;
+               UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
+                           "Message content: [Int32] \tReceived data: %i", value);
+            } 
+           
         }
     //}
 
