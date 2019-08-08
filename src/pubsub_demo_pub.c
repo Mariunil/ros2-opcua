@@ -110,7 +110,7 @@ static void addDataSetField(UA_Server* server) {
       UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), int32Attr, NULL, &dataSetFieldId);
 
 
-    if (!UA_NodeId_equal(&publishedDataSetId, &UA_NODEID_NULL)){
+    //if (!UA_NodeId_equal(&publishedDataSetId, &UA_NODEID_NULL)){
         
         // Create and add the field to the PublishedDataSet
         UA_DataSetFieldConfig int32Config;
@@ -124,7 +124,7 @@ static void addDataSetField(UA_Server* server) {
         UA_NodeId field1;
         UA_Server_addDataSetField(server, publishedDataSetId, &int32Config, &field1);
 
-    }
+    //}
 
 }
 
