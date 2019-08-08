@@ -28,7 +28,7 @@ The publisher do not use subscriebr high level API as it is not yet finished
 //To allow for ctrl-c triggered stop
 UA_Boolean running = true;
 static void stopHandler(int sign) {
-    A_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c"); 
+    UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c"); 
     running = false;
 }
 
@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
     UA_Variant_setScalar(&connectionConfig.address, &networkAddressUrl,
                          &UA_TYPES[UA_TYPES_NETWORKADDRESSURLDATATYPE]);
 
-    /* creating pubsubchannel in the udp layer*/
+    /* creating pubsubchannel in the udp layer */
     UA_PubSubChannel* psc = udpLayer.createPubSubChannel(&connectionConfig);
     psc->regist(psc, NULL, NULL);
 
