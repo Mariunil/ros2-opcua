@@ -1,6 +1,6 @@
 /*
 
-PUB/SUB DEMO EXAMPLE:
+PUB/SUB DEMO EXAMPLE: Subscriber
 
 The PubSub subscribe demo demonstrate the simplest way to susbribe to
 informations from the information model over UDP multicast using the UADP
@@ -24,16 +24,18 @@ The publisher do not use subscriebr high level API as it is not yet finished
 #include <open62541/plugin/pubsub_ethernet.h>
 #endif
 
+
+//To allow for ctrl-c triggered stop
 UA_Boolean running = true;
 static void stopHandler(int sign) {
-    UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER,
-                "received ctrl-c");
+    A_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c"); 
     running = false;
 }
 
-static UA_StatusCode subscriberListen(UA_PubSubChannel *psc) {
+static UA_StatusCode subscriberListen(UA_PubSubChannel* psc) {
     UA_ByteString buffer;
     UA_StatusCode retval = UA_ByteString_allocBuffer(&buffer, 512);
+
     if(retval != UA_STATUSCODE_GOOD) {
         UA_LOG_ERROR(UA_Log_Stdout, UA_LOGCATEGORY_SERVER,
                      "Message buffer allocation failed!");
@@ -42,13 +44,8 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel *psc) {
 
     /* Receive the message. Blocks for 100ms */
     retval = psc->receive(psc, &buffer, NULL, 100);
+    /* workaround, if retval isnt good stop and get next message */
     if(retval != UA_STATUSCODE_GOOD || buffer.length == 0) {
-        /* Workaround!! Reset buffer length. Receive can set the length to zero.
-         * Then the buffer is not deleted because no memory allocation is
-         * assumed.
-         * TODO: Return an error code in 'receive' instead of setting the buf
-         * length to zero. */
-        buffer.length = 512;
         UA_ByteString_clear(&buffer);
         return UA_STATUSCODE_GOOD;
     }
@@ -79,7 +76,7 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel *psc) {
         if(dsm->header.dataSetMessageType != UA_DATASETMESSAGE_DATAKEYFRAME)
             printf("\nif\n");
             //continue;
-        printf("\n heisveis\n");
+      
         /* Loop over the fields and print well-known content types */
         for(int i = 0; i < dsm->data.keyFrameData.fieldCount; i++) {
             const UA_DataType *currentType = dsm->data.keyFrameData.dataSetFields[i].value.type;
@@ -87,7 +84,8 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel *psc) {
                 UA_Byte value = *(UA_Byte *)dsm->data.keyFrameData.dataSetFields[i].value.data;
                 UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
                             "Message content: [Byte] \tReceived data: %i", value);
-            } else if (currentType == &UA_TYPES[UA_TYPES_DATETIME]) {
+            } 
+            if (currentType == &UA_TYPES[UA_TYPES_DATETIME]) {
                 UA_DateTime value = *(UA_DateTime *)dsm->data.keyFrameData.dataSetFields[i].value.data;
                 UA_DateTimeStruct receivedTime = UA_DateTime_toStruct(value);
                 UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
@@ -95,7 +93,8 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel *psc) {
                             "Received date: %02i-%02i-%02i Received time: %02i:%02i:%02i",
                             receivedTime.year, receivedTime.month, receivedTime.day,
                             receivedTime.hour, receivedTime.min, receivedTime.sec);
-            } else if(currentType == &UA_TYPES[UA_TYPES_INT32]) {
+            } 
+            if(currentType == &UA_TYPES[UA_TYPES_INT32]) {
                 UA_Int32 value = *(UA_Int32*)dsm->data.keyFrameData.dataSetFields[i].value.data;
                 UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
                             "Message content: [Byte] \tReceived data: %i", value);

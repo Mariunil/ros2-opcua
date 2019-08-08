@@ -1,6 +1,6 @@
 /*
 
-PUB/SUB DEMO EXAMPLE:
+PUB/SUB DEMO EXAMPLE: Publisher
 
 The PubSub publish demo demonstrate the simplest way to publish
 informations from the information model over UDP multicast using the UADP
@@ -28,6 +28,12 @@ static UA_Int32 value = 666;
 
 UA_NodeId connectionId, publishedDataSetId, writerGroupId, dataSetFieldId;
 
+//To allow for ctrl-c triggered stop
+UA_Boolean running = true;
+static void stopHandler(int sign) {
+  UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c");
+  running = false;
+}
 
 static void addPubSubConnection(UA_Server* server, UA_String* transportProfile,
                                 UA_NetworkAddressUrlDataType* networkAddressUrl){
@@ -174,12 +180,6 @@ static void addDataSetWriter(UA_Server* server) {
 }
 
 
-//To allow for ctrl-c triggered stop
-UA_Boolean running = true;
-static void stopHandler(int sign) {
-	UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c");
-	running = false;
-}
 
 
 
