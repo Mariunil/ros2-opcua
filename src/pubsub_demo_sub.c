@@ -126,14 +126,15 @@ int main(int argc, char **argv) {
     UA_Variant_setScalar(&connectionConfig.address, &networkAddressUrl,
                          &UA_TYPES[UA_TYPES_NETWORKADDRESSURLDATATYPE]);
 
-    UA_PubSubChannel *psc =
-        udpLayer.createPubSubChannel(&connectionConfig);
+    UA_PubSubChannel* psc = udpLayer.createPubSubChannel(&connectionConfig);
     psc->regist(psc, NULL, NULL);
 
+    /* while running and and listening return code GOOD, keep listening */
     UA_StatusCode retval = UA_STATUSCODE_GOOD;
     while(running && retval == UA_STATUSCODE_GOOD)
         retval = subscriberListen(psc);
 
+    /* close the pubsub channel */
     psc->close(psc);
         
     return 0;

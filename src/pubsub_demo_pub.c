@@ -13,10 +13,8 @@ The publisher uses publisher high level API
 #include <open62541/plugin/log_stdout.h>
 #include <open62541/plugin/pubsub_ethernet.h>
 #include <open62541/plugin/pubsub_udp.h> 
-
 #include <open62541/server.h>
 #include <open62541/server_config_default.h>
-
 #include <signal.h>
 
 static UA_Int32 value = 666;
@@ -208,15 +206,15 @@ static int run(UA_String* transportProfile,
 		return EXIT_FAILURE;
 	}
 
-    /* It is possible to use multiple PubSubTransportLayers on runtime. The correct factory
-       is selected on runtime by the standard defined PubSub TransportProfileUri's. */
+  /* It is possible to use multiple PubSubTransportLayers on runtime. The correct factory
+     is selected on runtime by the standard defined PubSub TransportProfileUri's. */
 	config->pubsubTransportLayers[0] = UA_PubSubTransportLayerUDPMP();
 	config->pubsubTransportLayersSize++;
 
 
 #ifdef UA_ENABLE_PUBSUB_ETH_UADP
-    //config->pubsubTransportLayers[1] = UA_PubSubTransportLayerEthernet();
-    //config->pubsubTransportLayersSize++;
+    config->pubsubTransportLayers[1] = UA_PubSubTransportLayerEthernet();
+    config->pubsubTransportLayersSize++;
 #endif
 
 
