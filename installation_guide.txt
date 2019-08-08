@@ -1,8 +1,7 @@
-05-08-2019
+08-08-2019
 
 
-# INSTALLATION GUIDE open62541 for Linux based systems
-
+# UBUNTU
 
 
 1. Clone opcua from github
@@ -96,6 +95,13 @@
 	sudo make install
 
 
+
+# RASBIAN 
+
+
+	Same procedure as on Ubuntu, but personally when installing the library on the Raspberry Pi 3b I experienced that when compiling pubsub_API_demo_pub and other pubsub codes, that the compiler couldn't find some of the header files that should have been located in /usr/local/include subdirectory. When comparing the Rasbian installation with the Ubuntu one I noticed the open62541 directory with a subset of header files was missing on the Rasbian installation. 
+
+	The solution was to send the open62541 folder with the header files from inside /usr/local/include on the Ubuntu instalation to the Raspberry pie, and adding it there. The folder is included into the opcua/RaspberryPie/. (This hack will probably stop working after a couple of releases, especially directly copying the folder from opcua/RaspberryPie/. Copying missing header files from a successfull installation to a unsuccesfull one will probably continue to work, allthough may not be necessary when the bug is fixed by open62541 ) 
 
 
 
