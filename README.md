@@ -1,10 +1,13 @@
 # opcua
 
 ## Description
-This repository will provide open62541 based OPC UA pubsub publisher and subcriber nodes that can be implemented in ROS 2.0 pubsub systems. Details of deployment in ROS 2.0 pubsub systems will come. At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
+The goal of this repository is to provide open62541 based OPC UA pubsub nodes that can be implemented in ROS 2.0 systems as ROS2.0/OPC-UA hybrid nodes to enable intercommunciation between the ROS 2.0 system and other automation equipment.
 
+Essentially utilizing OPC UA as industry 4.0 communication between the robot programmed and controlled with ROS 2.0 and the rest of the automation equipment. 
 
+Details of deployment in ROS 2.0 pubsub systems will be provided. 
 
+At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
 
 
 ## Development status:  
@@ -17,20 +20,20 @@ This repository will provide open62541 based OPC UA pubsub publisher and subcrib
 
     Stage 2.5 - OPC UA pub/sub UDP based over ethernet (desktop<->Rpi3)         DONE
 
-    Stage 3   - OPC UA publisher integration in ROS 2.0 system                  PENDING
+    Stage 3   - open62541 integration in ROS 2.0 system                         PENDING
 
-    Stage 4   - OPC UA subscriber integration in ROS 2.0 system 
+    Stage 4   - OPC-UA-Publisher/ROS2.0-subscriber hybrid node 
 
-    Stage 5   - Adding component structure for publisher to enable 
+    Stage 5   - OPC-UA-Subscriber/ROS2.0-publisher hybrid node
+
+    Stage 6   - Adding component structure to OPC UA publisher to enable 
                 node-hierarchy
 
-    Stage 6   - OPC UA subscriber with web extensions launching web based AAS
+    Stage 7   - OPC UA subscriber with web extensions launching web based AAS
                 with component information 
 
-    Stage 7   - OPC UA subscriber/webAAS: adding oppurtunity to call callbacks through
+    Stage 8   - OPC UA subscriber/webAAS: adding oppurtunity to call callbacks through
                 webservices in the web AAS  
-
-
 
  
 
