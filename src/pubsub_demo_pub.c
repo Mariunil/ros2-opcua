@@ -17,6 +17,7 @@ The publisher uses high level Publisher-API
 #include <open62541/server_config_default.h>
 #include <signal.h>
 
+static UA_NodeId folderId;
 static UA_NodeId ds1Int32Id;
 static UA_Int32 ds1Int32Val = 24;
 #define Publisher_ID 2042
@@ -87,7 +88,7 @@ static void addDataSetField(UA_Server* server) {
     /* Objects are used to represent systems, system components, 
      real-world objects and software objects. */
   
-    UA_NodeId folderId;
+
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
     oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Publisher 1");
     UA_Server_addObjectNode(server, UA_NODEID_NULL,
