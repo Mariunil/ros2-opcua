@@ -43,7 +43,7 @@ static void addCounterSensorVariable(UA_Server* server) {
 	   can do it if we don't specify it */
 	UA_NodeId counterNodeId = UA_NODEID_NUMERIC(1, COUNTER_NODE_ID);	
 
-	// We specify also the name of the OPC UA node
+	// We specify the name of the OPC UA node
 	UA_QualifiedName counterName = UA_QUALIFIEDNAME(1, "Piece Counter[pieces]");	
 
 	UA_VariableAttributes attr = UA_VariableAttributes_default;

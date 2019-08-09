@@ -88,7 +88,7 @@ static void addDataSetField(UA_Server* server) {
     /* Objects are used to represent systems, system components, 
      real-world objects and software objects. */
   
-
+    /*
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
     oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Publisher 1");
     UA_Server_addObjectNode(server, UA_NODEID_NULL,
@@ -96,7 +96,7 @@ static void addDataSetField(UA_Server* server) {
       UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES),
       UA_QUALIFIEDNAME(1, "Publisher 1"), 
       UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &folderId); 
-    
+    */
     UA_NodeId_init(&ds1Int32Id);
     UA_VariableAttributes int32Attr = UA_VariableAttributes_default;
     int32Attr.valueRank = -1;
@@ -104,7 +104,8 @@ static void addDataSetField(UA_Server* server) {
     int32Attr.accessLevel = UA_ACCESSLEVELMASK_READ ^ UA_ACCESSLEVELMASK_WRITE;
     UA_Variant_setScalar(&int32Attr.value, &ds1Int32Val, &UA_TYPES[UA_TYPES_INT32]);
     int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Int32");
-    UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Publisher1.Int32"), folderId,
+    UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Publisher1.Int32"), 
+        UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),//folderId,
         UA_NODEID_NUMERIC(0, UA_NS0ID_HASCOMPONENT),
         UA_QUALIFIEDNAME(1, "Int32"),
         UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), int32Attr, NULL, &ds1Int32Id);
@@ -129,6 +130,7 @@ static void addDataSetField(UA_Server* server) {
     /Here we are setting a specific ID for the node but the library
     //can do it if we don't specify it 
     UA_NodeId counterNodeId = UA_NODEID_NUMERIC(1, COUNTER_NODE_ID);  
+    // We specify the name of the OPC UA node
     UA_QualifiedName counterName = UA_QUALIFIEDNAME(1, "Piece Counter[pieces]");  
 
     UA_VariableAttributes attr = UA_VariableAttributes_default;
