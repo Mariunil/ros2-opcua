@@ -25,12 +25,12 @@ hosted by the server.
 // Define the ID of the node externally as it will be needed inside the thread
 #define COUNTER_NODE_ID 20305
 
-UA_Boolean running = true;
 
 // Global variable to keep the number of counted objects
 int32_t numberOfParts = 0;
 
 // To allow for ctrl-c triggered stop
+UA_Boolean running = true;
 static void stopHandler(int sig) {
     UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "Received ctrl-c");
     running = false;

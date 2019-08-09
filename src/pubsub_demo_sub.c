@@ -86,7 +86,7 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel* psc) {
             if(currentType == &UA_TYPES[UA_TYPES_INT32]) {
                UA_Int32 value = *(UA_Int32*)dsm->data.keyFrameData.dataSetFields[i].value.data;
                UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
-                           "Message content: [TempRead] \tSensorRead: %i", value);
+                           "Message content: [TempRead] \t %i [C]", value);
 
             } 
            
