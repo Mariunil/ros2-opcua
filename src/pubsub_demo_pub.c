@@ -17,14 +17,14 @@ The publisher uses high level Publisher-API
 #include <open62541/server_config_default.h>
 #include <signal.h>
 
-static UA_NodeId folderId;
+
 static UA_NodeId ds1Int32Id;
-static UA_Int32 ds1Int32Val = 24;
-#define Publisher_ID 2042
+static UA_Int32  ds1Int32Val = 24;
+
+
+#define Publisher_ID 1
 // Define the sampling time for the sensor
-#define SLEEP_TIME_MILLIS 50
-// Define the ID of the node externally as it will be needed inside the thread
-#define COUNTER_NODE_ID 20305
+// #define COUNTER_NODE_ID 20305
 
 UA_NodeId connectionId, publishedDataSetId, writerGroupId;
 
@@ -80,15 +80,14 @@ static void addPublishedDataSet(UA_Server* server) {
 
 
 
-/* The DataSetField is part of the PublishedDataSet and describes exactly one 
-   published field. The fields are whats being published */
 static void addDataSetField(UA_Server* server) {
 
-  /*-----------------den gamle---------------------------------------------
-    /* Objects are used to represent systems, system components, 
-     real-world objects and software objects. */
   
-    /*
+    /* WHAT: Objects are used to represent systems, system components, 
+             real-world objects and software objects. 
+       WHY:  To give component structure, gives BadNodeIdAttributeError on Rpi. 
+       TODO: make this work
+
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
     oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Publisher 1");
     UA_Server_addObjectNode(server, UA_NODEID_NULL,
@@ -97,6 +96,8 @@ static void addDataSetField(UA_Server* server) {
       UA_QUALIFIEDNAME(1, "Publisher 1"), 
       UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &folderId); 
     */
+
+
     UA_NodeId_init(&ds1Int32Id);
     UA_VariableAttributes int32Attr = UA_VariableAttributes_default;
     int32Attr.valueRank = -1;
@@ -104,13 +105,16 @@ static void addDataSetField(UA_Server* server) {
     int32Attr.accessLevel = UA_ACCESSLEVELMASK_READ ^ UA_ACCESSLEVELMASK_WRITE;
     UA_Variant_setScalar(&int32Attr.value, &ds1Int32Val, &UA_TYPES[UA_TYPES_INT32]);
     int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Int32");
-    UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Publisher1.Int32"), 
+    UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Sensor2455.TempRead"), 
         UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),//folderId,
         UA_NODEID_NUMERIC(0, UA_NS0ID_HASCOMPONENT),
-        UA_QUALIFIEDNAME(1, "Int32"),
+        UA_QUALIFIEDNAME(1, "Temperature"),
         UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), int32Attr, NULL, &ds1Int32Id);
+
+
     
     if (!UA_NodeId_equal(&publishedDataSetId, &UA_NODEID_NULL)){
+        // Create and add fields to the PublishedDataSet
         UA_DataSetFieldConfig int32Config;
         memset(&int32Config, 0, sizeof(UA_DataSetFieldConfig));
         int32Config.field.variable.fieldNameAlias = UA_STRING("Int32");
@@ -120,6 +124,7 @@ static void addDataSetField(UA_Server* server) {
 
         UA_NodeId f1;
         UA_Server_addDataSetField(server, publishedDataSetId, &int32Config, &f1);
+    
     }
 
    /* 
@@ -286,29 +291,7 @@ int main(int argc, char **argv) {
         UA_STRING("http://opcfoundation.org/UA-Profile/Transport/pubsub-udp-uadp");
     UA_NetworkAddressUrlDataType networkAddressUrl =
         {UA_STRING_NULL , UA_STRING("opc.udp://224.0.0.22:4840/")};
-
-    /*
-    if (argc > 1) {
-        if (strcmp(argv[1], "-h") == 0) {
-            usage(argv[0]);
-            return EXIT_SUCCESS;
-        } else if (strncmp(argv[1], "opc.udp://", 10) == 0) {
-            networkAddressUrl.url = UA_STRING(argv[1]);
-        } else if (strncmp(argv[1], "opc.eth://", 10) == 0) {
-            transportProfile =
-                UA_STRING("http://opcfoundation.org/UA-Profile/Transport/pubsub-eth-uadp");
-            if (argc < 3) {
-                printf("Error: UADP/ETH needs an interface name\n");
-                return EXIT_FAILURE;
-            }
-            networkAddressUrl.networkInterface = UA_STRING(argv[2]);
-            networkAddressUrl.url = UA_STRING(argv[1]);
-        } else {
-            printf("Error: unknown URI\n");
-            return EXIT_FAILURE;
-        }
-    }
-    */
+    
 
     return run(&transportProfile, &networkAddressUrl);
 }
