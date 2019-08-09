@@ -1,5 +1,4 @@
 /*
-
 PUB/SUB DEMO EXAMPLE: Subscriber
 
 The PubSub subscribe demo demonstrate the simplest way to susbribe to
@@ -7,7 +6,6 @@ informations from the information model over UDP multicast using the UADP
 encoding.
 
 The publisher do not use high level subscriber-API as it is not yet finished
-
 */
 
 #include <open62541/plugin/log_stdout.h>
@@ -15,8 +13,7 @@ The publisher do not use high level subscriber-API as it is not yet finished
 #include <open62541/plugin/pubsub_udp.h>
 #include <open62541/server.h>
 #include <open62541/server_config_default.h>
-
-#include "../lib/open62541/src/pubsub/ua_pubsub_networkmessage.h"
+#include <open62541/plugin/ua_pubsub_networkmessage.h> //manually placed
 
 #include <signal.h>
 

@@ -19,16 +19,16 @@ of its "Piece counter" node. The client accesses this data and prints it insinde
 #define SLEEP_TIME_MILLIS 50
 int utime = SLEEP_TIME_MILLIS*15000;
 
+
 int main(void) {
 
-// 1. First, we set up the connection
-
+/* First, we set up the connection */
 
 	// create a new client
 	UA_Client* client = UA_Client_new();
 	//set client config to default
 	UA_ClientConfig_setDefault(UA_Client_getConfig(client));
-	//statuscode for client connection to spcified endpoint
+	//statuscode for client connection to spcified endpoint (change ip-adress)
 	UA_StatusCode retval = UA_Client_connect(client, "opc.tcp://10.53.25.43:4840");
 	
 	if(retval != UA_STATUSCODE_GOOD) {
@@ -37,8 +37,7 @@ int main(void) {
 	}
 
 
-// 2. Next we will read the value attribute of the node.
-
+/* Next we will read the value attribute of the node */
 
 	// Variants can hold scalar values and arrays of any type 
 	UA_Int32 myInteger = 0;
@@ -91,8 +90,7 @@ int main(void) {
     }
 
    
-// 3. clean up
-
+	// clean up
     UA_BrowseRequest_clear(&bReq);
     UA_BrowseResponse_clear(&bResp);
 	UA_Variant_clear(&value);

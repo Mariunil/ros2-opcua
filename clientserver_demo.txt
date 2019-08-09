@@ -19,11 +19,6 @@ of its "Piece counter" node. The client accesses this data and prints it.
 ---
 
 
-Note:
-
-	Use the -std=c99 flag when compiling and remember to add the open62541.c file 
-
-		e.g. gcc -std=c99 ../lib/open62541/build/open62541.c cs_demo_server.c -o server
 
 
 

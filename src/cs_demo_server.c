@@ -8,7 +8,6 @@ hosted by the server.
 
 */
 
-
 #include <open62541/plugin/log_stdout.h>
 #include <open62541/server.h>
 #include <open62541/server_config_default.h>
@@ -42,10 +41,10 @@ static void addCounterSensorVariable(UA_Server* server) {
 	/* Here we are setting a specific ID for the node but the library
 	   can do it if we don't specify it */
 	UA_NodeId counterNodeId = UA_NODEID_NUMERIC(1, COUNTER_NODE_ID);	
-
 	// We specify the name of the OPC UA node
 	UA_QualifiedName counterName = UA_QUALIFIEDNAME(1, "Piece Counter[pieces]");	
 
+	// giving the node some attributes
 	UA_VariableAttributes attr = UA_VariableAttributes_default;
 	attr.description = UA_LOCALIZEDTEXT("en_US","Piece Counter (units:pieces)");
 	attr.displayName = UA_LOCALIZEDTEXT("en_US","Piece Counter");

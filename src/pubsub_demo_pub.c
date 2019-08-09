@@ -21,10 +21,9 @@ The publisher uses high level Publisher-API
 static UA_NodeId ds1Int32Id;
 static UA_Int32  ds1Int32Val = 24;
 
-
-#define Publisher_ID 1
 // Define the sampling time for the sensor
-// #define COUNTER_NODE_ID 20305
+#define Publisher_ID 1
+
 
 UA_NodeId connectionId, publishedDataSetId, writerGroupId;
 
@@ -83,10 +82,11 @@ static void addPublishedDataSet(UA_Server* server) {
 static void addDataSetField(UA_Server* server) {
 
   
-    /* WHAT: Objects are used to represent systems, system components, 
-             real-world objects and software objects. 
-       WHY:  To give component structure, gives BadNodeIdAttributeError on Rpi. 
-       TODO: make this work
+    /* WHAT:     Objects are used to represent systems, system components, 
+                 real-world objects and software objects. 
+       WHY:      To give component structure
+       Problem:  Gives BadNodeIdAttributeError on Rpi. 
+       TODO:     make this work
 
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
     oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Publisher 1");
