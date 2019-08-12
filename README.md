@@ -9,7 +9,7 @@ Details of deployment in ROS 2.0 pubsub systems will be provided.
 
 At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
 
-##Conents
+## Contents
 This repository contains to OPC UA Pubsub implementations absed on open62541.
 
     1. Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deplyable on any Linux system. This section includes a set of demo nodes that will serve as a minimalsitic exaple of use, and an extended version of both nodes with more data fields, features etc.
