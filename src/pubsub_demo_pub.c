@@ -17,7 +17,6 @@ The publisher uses high level Publisher-API
 #include <open62541/server_config_default.h>
 #include <signal.h>
 
-
 static UA_NodeId ds1Int32Id;
 static UA_Int32  ds1Int32Val = 24;
 

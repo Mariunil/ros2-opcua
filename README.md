@@ -9,6 +9,13 @@ Details of deployment in ROS 2.0 pubsub systems will be provided.
 
 At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
 
+##Conents
+This repository contains to OPC UA Pubsub implementations absed on open62541.
+
+    1. Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deplyable on any Linux system. This section includes a set of demo nodes that will serve as a minimalsitic exaple of use, and an extended version of both nodes with more data fields, features etc.
+
+    2. A ROS2 package with "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace and by that offering Industry 4.0 communication to your ROS2 controlled robot. 
+
 
 ## Development status:  
 
@@ -20,9 +27,9 @@ At the present time the repository is in a developmental stage where the publish
 
     Stage 2.5 - OPC UA pub/sub UDP based over ethernet (desktop<->Rpi3)         DONE
 
-    Stage 3   - open62541 integration in ROS 2.0 system                         PENDING
+    Stage 3   - open62541 integration in ROS 2.0 system                         DONE
 
-    Stage 4   - OPC-UA-Publisher/ROS2.0-subscriber hybrid node 
+    Stage 4   - OPC-UA-Publisher/ROS2.0-subscriber hybrid node                  PENDING
 
     Stage 5   - OPC-UA-Subscriber/ROS2.0-publisher hybrid node
 
