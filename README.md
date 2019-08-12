@@ -1,4 +1,4 @@
-# opcua for ROS2
+# ros2-opcua
 
 ## Description
 The goal of this repository is to provide open62541 based OPC UA pubsub nodes that can be implemented in ROS 2.0 systems as ROS2.0/OPC-UA hybrid nodes to enable intercommunciation between the ROS 2.0 system and other automation equipment.
