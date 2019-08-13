@@ -5,16 +5,17 @@ The goal of this repository is to provide open62541 based OPC UA pubsub nodes th
 
 Essentially utilizing OPC UA as industry 4.0 communication between the robot programmed and controlled with ROS 2.0 and the rest of the automation equipment. 
 
-Details of deployment in ROS 2.0 pubsub systems will be provided. 
+Details of deployment in ROS 2.0 systems will be provided. 
 
 At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
+(**IN PROGRESS:** Restructuring to simplify installation and removal of relative paths)
 
 ## Contents
-This repository contains to OPC UA Pubsub implementations absed on open62541.
+This repository contains two OPC UA Pubsub implementations based on open62541.
 
-1. Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deplyable on any Linux system. This section includes a set of demo nodes that will serve as a minimalsitic exaple of use, and an extended version of both nodes with more data fields, features etc.
+- OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deplyable on any Linux system. This section includes a set of demo nodes that will serve as a minimalsitic exaple of use, and an extended version of both nodes with more data fields, features etc.
 
-2. A ROS2 package with "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace and by that offering Industry 4.0 communication to your ROS2 controlled robot. 
+- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accomodate for Industry 4.0 communication to your ROS2 controlled robot. 
 
 
 ## Development status:  
@@ -33,22 +34,27 @@ This repository contains to OPC UA Pubsub implementations absed on open62541.
 
     Stage 5   - OPC-UA-Subscriber/ROS2.0-publisher hybrid node                  PENDING
 
-    Stage 6   - Adding component structure to OPC UA publisher to enable 
-                node-hierarchy
+    Stage 6   - Code clean-up, improve modularity, improve extensibility,       
+                informative in-line descriptions and comments
 
-    Stage 7   - OPC UA subscriber with web extensions launching web based AAS
-                with component information 
+    Stage 7   - Introduce node hierarchy to OPC UA publisher to present
+                component structure/hierarchy.                
 
-    Stage 8   - OPC UA subscriber/webAAS: adding oppurtunity to call callbacks through
-                webservices in the web AAS  
+    Stage 8   - Introduce a web interface to a component. Web interface
+                should be launched from a seperate c-file with web service
+                callable callbacks providing information from the OPC UA 
+                information model.
 
- 
+    Stage 9   - Introduce encryption capabilities from open62541.
+                demand login info to st up a pubsub-connection.           
+
+    Stage 10   - Introduce open62541 TSN-extension, develop real-time
+                pub/sub code to be runned with linux RT-patched linux system.
+
 
 
  
 
 ## Development notes: 
-
-Installation guide and demo code is being made. The publisher and subscriber nodes should be deployable directly inside ROS 2.0 systems. 
 
 The open62541 pub/sub documentation is not finished, but there are several tutorials and some example code. There is high level APIs available for clients, servers and publishers but the subscriber API is currently not finished (07-08-2019).
