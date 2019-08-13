@@ -18,7 +18,7 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
 - ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accomodate for Industry 4.0 communication to your ROS2 controlled robot. 
 
 
-## Development status:  
+## Development status / roadmap:  
 
     Stage 1   - OPC UA client/server local communication.                       DONE  
 
