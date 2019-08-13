@@ -29,9 +29,9 @@ This repository contains to OPC UA Pubsub implementations absed on open62541.
 
     Stage 3   - open62541 integration in ROS 2.0 system                         DONE
 
-    Stage 4   - OPC-UA-Publisher/ROS2.0-subscriber hybrid node                  PENDING
+    Stage 4   - OPC-UA-Publisher/ROS2.0-subscriber hybrid node                  DONE
 
-    Stage 5   - OPC-UA-Subscriber/ROS2.0-publisher hybrid node
+    Stage 5   - OPC-UA-Subscriber/ROS2.0-publisher hybrid node                  PENDING
 
     Stage 6   - Adding component structure to OPC UA publisher to enable 
                 node-hierarchy
