@@ -13,9 +13,9 @@ At the present time the repository is in a developmental stage where the publish
 ## Contents
 This repository contains two OPC UA Pubsub implementations based on open62541.
 
-- OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deplyable on any Linux system. This section includes a set of demo nodes that will serve as a minimalsitic exaple of use, and an extended version of both nodes with more data fields, features etc.
+- OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deployable on any Linux system. This section includes a set of demo nodes that will serve as a minimalistic example of use and a extended version of both nodes with more data fields, features etc.
 
-- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accomodate for Industry 4.0 communication to your ROS2 controlled robot. 
+- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accommodate for Industry 4.0 communication to your ROS2 controlled robot. 
 
 
 ## Development status / roadmap:  
