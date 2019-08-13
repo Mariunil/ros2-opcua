@@ -26,8 +26,8 @@ int main(void) {
 	UA_Client* client = UA_Client_new();
 	//set client config to default
 	UA_ClientConfig_setDefault(UA_Client_getConfig(client));
-	//statuscode for client connection to spcified endpoint (change ip-adress)
-	UA_StatusCode retval = UA_Client_connect(client, "opc.tcp://10.53.25.43:4840");
+	//statuscode for client connection to spcified endpoint (Rpi3 ip-adress)
+	UA_StatusCode retval = UA_Client_connect(client, "opc.tcp://10.53.24.102:4840");
 	
 	if(retval != UA_STATUSCODE_GOOD) {
 		UA_Client_delete(client);

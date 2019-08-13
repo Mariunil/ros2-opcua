@@ -6,7 +6,7 @@
 
 1. Clone opcua from github
 
-	git clone https://github.com/Mariunil/opcua.git
+	git clone https://github.com/Mariunil/ros2-opcua.git
 
 
 2. Install needed dependency to compile the open62541 library
@@ -26,12 +26,12 @@
 
 3. Clone open62541 from github
 
-	Navigate to /opcua/lib/
+	Navigate to /home/ or other preferable location
 
 	git clone https://github.com/open62541/open62541.git
 
 
-4. Configure open62541 as a submodule and prepare for cmake
+4. Install open62541 
 
 
 	Naviagte to the open62541 directory
@@ -94,27 +94,19 @@
 	make
 	sudo make install
 
-7. Move some header files from installation folder to system header files
+7. Move some header files from installation folder to system header files 
+
+	(This step was needed at 07-08-2019. May be unecessary now.)
 	
 	To avoid having relational paths to header files, we will move "ua_pubsub_networkmessage.h" from oocua/open62541/src/pubsub/ to /usr/local/include/open62541/plugin
 
 		sudo cp opcua/lib/open62541/src/pubsub/ua_pubsub_networkmessage.h /usr/local/include/open62541/plugin
 
-8. Copy the amalgamated open62541 files to opcua/src
+8. Copy the amalgamated open62541 .c/.h files to ros2-opcua/lib
 
-	Copy the open62541.c and open62541.h files from opcua/lib/open62541/build/ to the src folder of opcua. 
-
-
-9. Compiling and running the code
-
-	Use the -std=c99 flag when compiling and remember to add the open62541.c file 
+	They are located at open62541/build.
 
 
-		(if you haven't moved the amalgamated open62541 files)
-			gcc -std=c99 ../lib/open62541/build/open62541.c cs_demo_server.c -o server
-
-		(if they now are located with the c-files in opcua/src)
-			gcc -std=c99 cs_demo_server.c -o cs_demo_server
  
 
 
