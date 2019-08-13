@@ -1,5 +1,4 @@
 /*
-
 PUB/SUB DEMO EXAMPLE: Publisher
 
 The PubSub publish demo demonstrate the simplest way to publish
@@ -8,20 +7,24 @@ encoding.
 
 The publisher uses high level Publisher-API
 
+The Publisher is at a publishing rate of once every five seconds the temperature
+"read" from a fake sensor, here modelled as a duble of 25.0 +/- 0.9.
+
+The publisher server contain one information model of the sensor, containing
+only the double representening the temperature measurement. 
 */
 
-#include <open62541/plugin/log_stdout.h>
-#include <open62541/plugin/pubsub_ethernet.h>
-#include <open62541/plugin/pubsub_udp.h> 
-#include <open62541/server.h>
-#include <open62541/server_config_default.h>
+#include "open62541.h"
 #include <signal.h>
+#include <pthread.h>
+#include <time.h>
 
 static UA_NodeId ds1Int32Id;
-static UA_Int32  ds1Int32Val = 24;
+static UA_Double  ds1Int32Val;
 
-// Define the sampling time for the sensor
 #define Publisher_ID 1
+// Define the sampling time for the sensor
+#define SLEEP_TIME_MILLIS 5*100000
 
 
 UA_NodeId connectionId, publishedDataSetId, writerGroupId;
@@ -32,6 +35,27 @@ static void stopHandler(int sign) {
   UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "received ctrl-c");
   running = false;
 }
+
+
+void* publishedValUpdater(void* ptr){  
+
+  UA_Server* server = ptr;  
+  int utime = SLEEP_TIME_MILLIS; //to adjust the publishing interval
+
+  while (running == true){
+
+    // Update the OPC-UA node containing the value
+    double randomNum = (rand() % 19 + (-9))/10.0;
+    UA_Variant value;
+    UA_Double myInteger = (UA_Double) 25+randomNum;
+    UA_Variant_setScalarCopy(&value, &myInteger, &UA_TYPES[UA_TYPES_DOUBLE]);
+    UA_Server_writeValue(server, UA_NODEID_STRING(1, "Sensor2455.TempRead"), value);          
+
+    // publishing interval
+    usleep(utime);
+  }
+}
+
 
 static void addPubSubConnection(UA_Server* server, UA_String* transportProfile,
                                 UA_NetworkAddressUrlDataType* networkAddressUrl){
@@ -100,10 +124,10 @@ static void addDataSetField(UA_Server* server) {
     UA_NodeId_init(&ds1Int32Id);
     UA_VariableAttributes int32Attr = UA_VariableAttributes_default;
     int32Attr.valueRank = -1;
-    UA_NodeId_copy(&UA_TYPES[UA_TYPES_INT32].typeId, &int32Attr.dataType);
+    UA_NodeId_copy(&UA_TYPES[UA_TYPES_DOUBLE].typeId, &int32Attr.dataType);
     int32Attr.accessLevel = UA_ACCESSLEVELMASK_READ ^ UA_ACCESSLEVELMASK_WRITE;
-    UA_Variant_setScalar(&int32Attr.value, &ds1Int32Val, &UA_TYPES[UA_TYPES_INT32]);
-    int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Int32");
+    UA_Variant_setScalar(&int32Attr.value, &ds1Int32Val, &UA_TYPES[UA_TYPES_DOUBLE]);
+    int32Attr.displayName = UA_LOCALIZEDTEXT("en-US", "Double");
     UA_Server_addVariableNode(server, UA_NODEID_STRING(1, "Sensor2455.TempRead"), 
         UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),//folderId,
         UA_NODEID_NUMERIC(0, UA_NS0ID_HASCOMPONENT),
@@ -114,7 +138,7 @@ static void addDataSetField(UA_Server* server) {
         // Create and add fields to the PublishedDataSet
         UA_DataSetFieldConfig int32Config;
         memset(&int32Config, 0, sizeof(UA_DataSetFieldConfig));
-        int32Config.field.variable.fieldNameAlias = UA_STRING("Int32");
+        int32Config.field.variable.fieldNameAlias = UA_STRING("Double");
         int32Config.field.variable.promotedField = false;
         int32Config.field.variable.publishParameters.publishedVariable = ds1Int32Id;
         int32Config.field.variable.publishParameters.attributeId = UA_ATTRIBUTEID_VALUE;
@@ -222,6 +246,11 @@ static int run(UA_String* transportProfile,
     addWriterGroup(server);
     addDataSetWriter(server);
 
+    /* spins out a thread which continuously updates the published Int32
+       to the current value of the global variable */
+    pthread_t thread1;
+    pthread_create( &thread1, NULL, publishedValUpdater, server);
+
     // This line runs the server in a loop while the running variable is true.
     UA_StatusCode retval = UA_Server_run(server, &running);
       // When the server stops running we free the resources
@@ -246,6 +275,7 @@ int main(int argc, char **argv) {
     UA_NetworkAddressUrlDataType networkAddressUrl =
         {UA_STRING_NULL , UA_STRING("opc.udp://224.0.0.22:4840/")};
     
+    srand((unsigned)time(NULL)); 
 
     return run(&transportProfile, &networkAddressUrl);
 }

@@ -5,7 +5,10 @@ The PubSub subscribe demo demonstrate the simplest way to susbribe to
 informations from the information model over UDP multicast using the UADP
 encoding.
 
-The publisher do not use high level subscriber-API as it is not yet finished
+The Subscriber do not use high level Subscriber-API as it is not yet finished
+
+The subscriber reads the message from the pubsub-channel created between it and
+the publisher with the publisher and prints the value. 
 */
 
 #include <open62541/plugin/log_stdout.h>
@@ -80,10 +83,10 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel* psc) {
             
             const UA_DataType* currentType = dsm->data.keyFrameData.dataSetFields[i].value.type;
             
-            if(currentType == &UA_TYPES[UA_TYPES_INT32]) {
-               UA_Int32 value = *(UA_Int32*)dsm->data.keyFrameData.dataSetFields[i].value.data;
+            if(currentType == &UA_TYPES[UA_TYPES_DOUBLE]) {
+               UA_Double value = *(UA_Double*)dsm->data.keyFrameData.dataSetFields[i].value.data;
                UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND,
-                           "Message content: [TempRead] \t %i [C]", value);
+                           "Message content: [TempRead] \t %f [C]", value);
 
             } 
            
@@ -96,6 +99,8 @@ static UA_StatusCode subscriberListen(UA_PubSubChannel* psc) {
 }
 
 int main(int argc, char **argv) {
+
+    //ctrl-c handler
     signal(SIGINT, stopHandler);
     signal(SIGTERM, stopHandler);
 
