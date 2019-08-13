@@ -1,23 +1,21 @@
 /*
-CLIENT/SERVER DEMO EXAMPLE: Simple OPC UA client accessing fake sensor data
+CLIENT/SERVER DEMO EXAMPLE: Simple OPC UA Client accessing fake sensor data.
 
-The OPC UA client sets up a connection to a OPC UA server by a TCP connection.
+The OPC UA Client sets up a connection to a OPC UA Server by a TCP connection.
 The server counts parts with a sensor and updates the numberOfparts attribute 
 of its "Piece counter" node. The client accesses this data and prints it insinde a loop.
 */
 
+//library amalgamated to a single file .h/.c file for simplicity
+#include "open62541.h"
 
-#include <open62541/client_config_default.h>
-#include <open62541/client_highlevel.h>
-#include <open62541/plugin/log_stdout.h>
 #include <stdlib.h>
+
 
 //NodeID of sensor-node
 #define COUNTER_NODE_ID 20305
-
 //polling interval for the client
-#define SLEEP_TIME_MILLIS 50
-int utime = SLEEP_TIME_MILLIS*15000;
+#define SLEEP_TIME_MILLIS 2000000
 
 
 int main(void) {
@@ -74,7 +72,7 @@ int main(void) {
 					   UA_Variant_hasScalarType(&value, &UA_TYPES[UA_TYPES_INT32])) 
 					{
 						UA_Int32 raw_val = *(UA_Int32*) value.data;
-						printf("\nCounted pieces: %i\n", raw_val);
+						printf("\nRecieved from server: [Counted pieces] %i ", raw_val);
 					}
 					else{
 						/*For debugging*/
@@ -83,7 +81,7 @@ int main(void) {
 							printf("\nUA_Variant_hasScalarType != OK\n");
 						}
 				    }
-				    usleep(utime);
+				    usleep(SLEEP_TIME_MILLIS);
 				}
 		    }
 	    }

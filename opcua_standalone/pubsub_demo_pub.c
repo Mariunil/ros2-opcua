@@ -8,7 +8,7 @@ encoding.
 The publisher uses high level Publisher-API
 
 The Publisher is at a publishing rate of once every five seconds the temperature
-"read" from a fake sensor, here modelled as a duble of 25.0 +/- 0.9.
+"read" from a fake sensor, here modelled as a duble of 25.0 +/- 0.999.
 
 The publisher server contain one information model of the sensor, containing
 only the double representening the temperature measurement. 
@@ -45,9 +45,11 @@ void* publishedValUpdater(void* ptr){
   while (running == true){
 
     // Update the OPC-UA node containing the value
-    double randomNum = (rand() % 19 + (-9))/10.0;
+    double randDec1 = (rand() % 19 + (-9))/10.0;
+    double randDec2 = (rand() % 19 + (-9))/100.0;
+    double randDec3 = (rand() % 19 + (-9))/1000.0;
     UA_Variant value;
-    UA_Double myInteger = (UA_Double) 25+randomNum;
+    UA_Double myInteger = (UA_Double) 25+randDec1+randDec2+randDec3;
     UA_Variant_setScalarCopy(&value, &myInteger, &UA_TYPES[UA_TYPES_DOUBLE]);
     UA_Server_writeValue(server, UA_NODEID_STRING(1, "Sensor2455.TempRead"), value);          
 

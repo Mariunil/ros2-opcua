@@ -1,16 +1,14 @@
 /*
-CLIENT/SERVER DEMO EXAMPLE: Simple OPC UA server sending fake "sensor" data
+CLIENT/SERVER DEMO EXAMPLE: Simple OPC UA server sending fake sensor data.
 
-The OPC-UA server sets up a "Piece counter" node containing fake sensor data. 
+The OPC UA Server sets up a "Piece counter" node. 
 The data models a sensor counting passings. The server utilizes a seperate thread 
 to monitor "the sensor", which in reality is a loop incrementing a variable on a node
 hosted by the server.
-
 */
 
-#include <open62541/plugin/log_stdout.h>
-#include <open62541/server.h>
-#include <open62541/server_config_default.h>
+//library amalgamated to a single file .h/.c file for simplicity
+#include "open62541.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,14 +17,13 @@ hosted by the server.
 
 
 
-// Define the sampling time for the sensor
-#define SLEEP_TIME_MILLIS 50
+// adjust the rate of passing "parts" (one every two seconds)
+#define SLEEP_TIME_MILLIS 2000000
 // Define the ID of the node externally as it will be needed inside the thread
 #define COUNTER_NODE_ID 20305
-
-
 // Global variable to keep the number of counted objects
 int32_t numberOfParts = 0;
+
 
 // To allow for ctrl-c triggered stop
 UA_Boolean running = true;
@@ -68,7 +65,6 @@ static void addCounterSensorVariable(UA_Server* server) {
 void* mainSensor(void* ptr){	
 
 	UA_Server* server = ptr;	
-	int utime = SLEEP_TIME_MILLIS*15000;
 
 	while (running == 1){
 					
@@ -76,14 +72,13 @@ void* mainSensor(void* ptr){
 		numberOfParts += 1;
 		printf("\nCounter updated: %i parts\n", numberOfParts);
 
-		// Update the OPC-UA node
+		// Update the OPC UA node
 		UA_Variant value;
 		UA_Int32 myInteger = (UA_Int32) numberOfParts;
 		UA_Variant_setScalarCopy(&value, &myInteger, &UA_TYPES[UA_TYPES_INT32]);
 		UA_Server_writeValue(server, UA_NODEID_NUMERIC(1,COUNTER_NODE_ID), value);					
 
-		// "Sampling time" of the "sensor"
-		usleep(utime);
+		usleep(SLEEP_TIME_MILLIS);
 	}
 }
 
@@ -104,7 +99,7 @@ int main(void) {
     // Add the variable from the fake sensor
     addCounterSensorVariable(server); 
 
-    // Launch the thread. The OPC-UA server is passed as parameter as the 
+    // Launch the thread. The OPC UA server is passed as parameter as the 
     // value of the node needs to be updated.
 	if(pthread_create( &threadSensor, NULL, mainSensor, server)) {
 		fprintf(stderr,"Error - pthread_create(): %d\n",ret);
