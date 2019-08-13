@@ -20,22 +20,27 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
 
 ## Development status / roadmap:  
 
-    Stage 1   - OPC UA client/server local communication.                       DONE  
+    Stage 1   - OPC UA Client/Server local communication.                       DONE  
 
-    Stage 1.5 - OPC UA client/server TCP based over ethernet (desktop<->Rpi3)   DONE
+    Stage 1.5 - OPC UA Client/Server TCP based over ethernet (desktop<->Rpi3)   DONE
 
-    Stage 2   - OPC UA pub/sub local                                            DONE		
+    Stage 2   - OPC UA Pub/Sub local                                            DONE		
 
-    Stage 2.5 - OPC UA pub/sub UDP based over ethernet (desktop<->Rpi3)         DONE
+    Stage 2.5 - OPC UA Pub/Sub UDP based over ethernet (desktop<->Rpi3)         DONE
 
-    Stage 3   - open62541 integration in ROS 2.0 system                         DONE
+    Stage 3   - open62541 integration in ROS2 system                            DONE
 
-    Stage 4   - OPC-UA-Publisher/ROS2.0-subscriber hybrid node                  DONE
+    Stage 4   - OPC UA Publisher/ROS2 Subscriber hybrid node                    DONE
 
-    Stage 5   - OPC-UA-Subscriber/ROS2.0-publisher hybrid node                  PENDING
+    Stage 5   - OPC UA Subscriber/ROS2 Publisher hybrid node                    DONE
 
-    Stage 6   - Code clean-up, improve modularity, improve extensibility,       
-                informative in-line descriptions and comments
+    Stage 5.5 - Hybrid node communication from desktop ROS2 system              DONE
+                to Raspberry Pie deployed OPC UA Publisher and Subscriber
+                (UDP transportlayer protocol over ethernet)
+
+Development will stop here. Roadmap is mapped below.
+
+    Stage 6   - Code clean-up, improve modularity, improve extensibility       
 
     Stage 7   - Introduce node hierarchy to OPC UA publisher to present
                 component structure/hierarchy.                
@@ -58,3 +63,8 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
 ## Development notes: 
 
 The open62541 pub/sub documentation is not finished, but there are several tutorials and some example code. There is high level APIs available for clients, servers and publishers but the subscriber API is currently not finished (07-08-2019).
+
+
+## Installation 
+
+A Installation guide is provided in installation_guide.txt

@@ -23,7 +23,7 @@ static UA_NodeId ds1Int32Id;
 static UA_Double  ds1Int32Val;
 
 #define Publisher_ID 1
-// Define the sampling time for the sensor
+// Define the sampling time for the "sensor"
 #define SLEEP_TIME_MILLIS 5*100000
 
 
