@@ -1,21 +1,15 @@
 # ros2-opcua
 
 ## Description
-The goal of this repository is to provide open62541 based OPC UA pubsub nodes that can be implemented in ROS 2.0 systems as ROS2.0/OPC-UA hybrid nodes to enable intercommunciation between the ROS 2.0 system and other automation equipment.
+The goal of this repository is to provide open62541 based OPC UA pubsub nodes that can be implemented in ROS2 systems as ROS2/OPC UA hybrid nodes to enable intercommunciation between the ROS2 system and other automation equipment.
 
-Essentially utilizing OPC UA as industry 4.0 communication between the robot programmed and controlled with ROS 2.0 and the rest of the automation equipment. 
-
-Details of deployment in ROS 2.0 systems will be provided. 
-
-At the present time the repository is in a developmental stage where the publisher and subscribers only can be run from the src subdirectory due to some relational #include statements.
-(**IN PROGRESS:** Restructuring to simplify installation and removal of relative paths)
 
 ## Contents
 This repository contains two OPC UA Pubsub implementations based on open62541.
 
 - OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deployable on any Linux system. This section includes a set of demo nodes that will serve as a minimalistic example of use and a extended version of both nodes with more data fields, features etc.
 
-- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accommodate for Industry 4.0 communication to your ROS2 controlled robot. 
+- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accommodate for communication to your ROS2 controlled robot. 
 
 
 ## Development status / roadmap:  
@@ -40,21 +34,24 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
 
 Development will stop here. Roadmap is mapped below.
 
-    Stage 6   - Code clean-up, improve modularity, improve extensibility       
+    Stage 6   - Extend OPC UA standalone and hybrid nodes to include several
+                data fields.     
 
     Stage 7   - Introduce node hierarchy to OPC UA publisher to present
-                component structure/hierarchy.                
+                component structure/hierarchy and self-descriptive information   
 
-    Stage 8   - Introduce a web interface to a component. Web interface
-                should be launched from a seperate c-file with web service
+    Stage 8   - Code clean-up: improve modularity, improve extensibility.               
+
+    Stage 9   - Introduce a web interface to a component. Web interface
+                should be launched from a seperate .c/.cpp file with web service
                 callable callbacks providing information from the OPC UA 
                 information model.
 
-    Stage 9   - Introduce encryption capabilities from open62541.
-                demand login info to st up a pubsub-connection.           
+    Stage 10   - Introduce encryption capabilities from open62541.
+                 Demand login info to set up a pubsub-connection.           
 
-    Stage 10   - Introduce open62541 TSN-extension, develop real-time
-                pub/sub code to be runned with linux RT-patched linux system.
+    Stage 11   - Introduce open62541 TSN-extension, develop real-time
+                 pub/sub code to be runned with linux RT-patched linux system.
 
 
 
