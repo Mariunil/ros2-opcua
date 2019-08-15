@@ -1,7 +1,7 @@
 # ros2-opcua
 
 ## Description
-The goal of this repository is to provide open62541 based OPC UA pubsub nodes that can be implemented in ROS2 systems as ROS2/OPC UA hybrid nodes to enable intercommunciation between the ROS2 system and other automation equipment.
+The goal of this repository is to provide open62541 based OPC UA pubsub standalone nodes and nodes that can be implemented in ROS2 systems as ROS2/OPC UA hybrid nodes to enable intercommunciation between the ROS2 system and other automation equipment.
 
 
 ## Contents
@@ -9,7 +9,7 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
 
 - OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deployable on any Linux system. This section includes a set of demo nodes that will serve as a minimalistic example of use and a extended version of both nodes with more data fields, features etc.
 
-- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accommodate for communication to your ROS2 controlled robot. 
+- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accommodate for communication with your ROS2 controlled robot.
 
 
 ## Development status / roadmap:  
@@ -38,30 +38,39 @@ Development will stop here. Roadmap is mapped below.
                 data fields.     
 
     Stage 7   - Introduce node hierarchy to OPC UA publisher to present
-                component structure/hierarchy and self-descriptive information   
+                component structure/hierarchy and thus 
+                self-descriptive information, utilizing and realizing 
+                the OPC UA semantic information model.   
 
-    Stage 8   - Code clean-up: improve modularity, improve extensibility.               
-
-    Stage 9   - Introduce a web interface to a component. Web interface
+    Stage 8   - Introduce a web interface to a component. Web interface
                 should be launched from a seperate .c/.cpp file with web service
                 callable callbacks providing information from the OPC UA 
                 information model.
 
-    Stage 10   - Introduce encryption capabilities from open62541.
-                 Demand login info to set up a pubsub-connection.           
+    Stage 9   - Introduce encryption capabilities from open62541.
+                Demand login info to set up a pubsub-connection.           
 
-    Stage 11   - Introduce open62541 TSN-extension, develop real-time
-                 pub/sub code to be runned with linux RT-patched linux system.
-
+    Stage 10  - Introduce open62541 TSN-extension and develop real-time
+                pub/sub code. Test real-time performance on a real-time
+                capable connection and OS.
 
 
  
 
 ## Development notes: 
 
-The open62541 pub/sub documentation is not finished, but there are several tutorials and some example code. There is high level APIs available for clients, servers and publishers but the subscriber API is currently not finished (07-08-2019).
+The open62541 pub/sub documentation is not finished, but there are several tutorials and some example code to be found at their github https://github.com/open62541/open62541/tree/master/examples/pubsub. 
+
+There is high level APIs available for clients, servers and publishers but the subscriber API is currently not finished (07-08-2019). The standalone and ROS2 nodes utilize the highest abstraction API available at the time.
 
 
 ## Installation 
 
-A Installation guide is provided in installation_guide.txt
+A complete installation guide is provided in installation_guide.txt
+
+
+## Inspecting 
+
+For inspection purposes UAExpert and Wireshark are recommended. UAExpert provides a client-side GUI for inspecting the nodes and values of the server or publisher providng data.
+
+Wireshark is a useful tool for monitoring packet transfer.
