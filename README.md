@@ -1,15 +1,15 @@
 # ros2-opcua
 
 ## Description
-The goal of this repository is to provide open62541 based OPC UA pubsub standalone nodes and nodes that can be implemented in ROS2 systems as ROS2/OPC UA hybrid nodes to enable intercommunciation between the ROS2 system and other automation equipment.
+The goal of this repository is to provide open62541 based OPC UA pubsub standalone nodes and ROS 2 hybrid nodes. The hyrbdid nodes contain a ROS 2 subscriber or publisher with a integrated OPC UA publisher or subscriber. THe hyrbid nodes can act as a gateway or API between the OPC UA ecosystem and the ROS 2 ecosystem
 
 
 ## Contents
 This repository contains two OPC UA Pubsub implementations based on open62541.
 
-- OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deployable on any Linux system. This section includes a set of demo nodes that will serve as a minimalistic example of use and a extended version of both nodes with more data fields, features etc.
+- OPC UA Standalone: Easy to deploy standalone OPC UA Publisher Subsriber nodes that should be deployable on any Linux system. This section includes a set of demo nodes that will serve as a minimalistic example of use and a extended version of both nodes with more data fields, features etc. Client/server demo nodes are also included.
 
-- ROS2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS2 workspace as a new package to accommodate for communication with your ROS2 controlled robot.
+- ROS 2 Hybdrid Nodes: "hybrid" OPCUAPublisher/ROS2Subscriber and  OPCUA/Subscriber/ROS2Publisher nodes that can be included easily into your ROS 2 workspace as a new package to accommodate for communication with your ROS2 controlled robot.
 
 
 ## Development status / roadmap:  
