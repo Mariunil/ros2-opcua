@@ -32,25 +32,31 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
                 to Raspberry Pie deployed OPC UA Publisher and Subscriber
                 (UDP transportlayer protocol over ethernet)
 
-Development will stop here. Roadmap is mapped below.
+Development stopped. Roadmap is mapped below.
 
-    Stage 6   - Extend OPC UA standalone and hybrid nodes to include several
-                data fields.     
+      
+    Stage 6   - Impelemnt the semantic information model of OPC UA
+                properly by modelling devices with a proper component 
+                hierarchy with self-descriptive information. 
+                                
+    Stage 7   - Find a way to install a common vocabulary in conformance to
+                I4.0 standardization. Rename and all names and IDs to
+                conform to the vocabulary, both inside OPC UA's 
+                information model and ROS 2 topic names.
+    
+    Stage 8   - By leveraging the vocabulary and the semantic information
+                model of OPC UA , set up automatic translation of the
+                "sensors" data modelled in ROS 2 and OPC UA.
 
-    Stage 7   - Introduce node hierarchy to OPC UA publisher to present
-                component structure/hierarchy and thus 
-                self-descriptive information, utilizing and realizing 
-                the OPC UA semantic information model.   
-
-    Stage 8   - Introduce a web interface to a component. Web interface
+    Stage 9   - Introduce a web interface for the sensor. Web interface
                 should be launched from a seperate .c/.cpp file with web service
                 callable callbacks providing information from the OPC UA 
-                information model.
+                information model. 
 
-    Stage 9   - Introduce encryption capabilities from open62541.
+    Stage 10  - Introduce encryption capabilities from open62541.
                 Demand login info to set up a pubsub-connection.           
 
-    Stage 10  - Introduce open62541 TSN-extension and develop real-time
+    Stage 11  - Introduce open62541 TSN-extension and develop real-time
                 pub/sub code. Test real-time performance on a real-time
                 capable connection and OS.
 
