@@ -35,7 +35,7 @@ This repository contains two OPC UA Pubsub implementations based on open62541.
 Development stopped. Roadmap is mapped below.
 
       
-    Stage 6   - Impelemnt the semantic information model of OPC UA
+    Stage 6   - Implement the semantic information model of OPC UA
                 properly by modelling devices with a proper component 
                 hierarchy with self-descriptive information. 
                                 
