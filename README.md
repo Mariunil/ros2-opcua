@@ -49,7 +49,7 @@ Development stopped. Roadmap is mapped below.
                 "sensors" data modelled in ROS 2 and OPC UA.
 
     Stage 9   - Introduce a web interface for the sensor. Web interface
-                should be launched from a seperate .c/.cpp file with web service
+                should be launched from a separate .c/.cpp file with web service
                 callable callbacks providing information from the OPC UA 
                 information model. 
 
